@@ -1,0 +1,19 @@
+Menu UI ( dans Py ):
+    - Craft (text)
+    - Défit
+    - Guide de construction
+
+Back-log ( Todo-list prioriser )
+
+créé les differantes foctionnaliter:
+    Craft
+    Défit
+    Build
+
+tout regrouper
+
+fjhsdjfhfjsdhfjks:
+    hjhuih
+    fgerfgger
+    fdfd
+gjerhgjikedrgjkdrgj
