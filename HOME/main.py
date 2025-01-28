@@ -1,17 +1,12 @@
 import os.path
 import os
-import sys
-import time
 import openai
 from colorama import Fore, Style
 from dotenv import load_dotenv
 
-
-
-sujet = "Minecraft Bedrock"
-
 openai.api_key = os.getenv("OPENAI_KEY")
 load_dotenv()
+sujet = "Minecraft Bedrock"
 
 # menu
 def menu_menu():
@@ -41,36 +36,38 @@ def menu_menu():
 def menu_craft():
 
   openai.api_key = os.getenv("OPENAI_KEY")
-  condition = False
-  item = input(Style.BRIGHT + Fore.BLUE + "Quelle est l'iteam d'on vous vouler connaitre le craft ?")
-
-  while item == "menu":
-    menu_menu()
+  condition_sortie = False
   # IA
-  if not condition:
-    # sujet = "Minecraft"
-    prompt = f"Affiche uniquemment en Grille le craft de {item}"
-    # prompt = f"Explique tres brievement comment crafter {item} dans {sujet} et ce en expliquant uniquement les materiaux n'hessecaire et leurs empacement"
+  while not condition_sortie:
+    item = input(Style.BRIGHT + Fore.BLUE + "Quelle est l'iteam d'on vous vouler connaitre le craft ?")
+    # retour menu
+    if item == "exit":
+      condition_sortie = True
+    else:
 
-    completion = openai.ChatCompletion.create(
-      model="gpt-4o",
-      temperature=1,
-      #  max_tokens=,
-      messages=[{"role": "user", "content": prompt}]
-    )
-    print(Fore.WHITE + completion['choices'][0]['message']['content'])
+      # sujet = "Minecraft"
+      prompt = f"Affiche uniquemment en Grille le craft de {item} dans {sujet}"
+      # prompt = f"Explique tres brievement comment crafter {item} dans {sujet} et ce en expliquant uniquement les materiaux n'hessecaire et leurs empacement"
+
+      completion = openai.ChatCompletion.create(
+        model="gpt-4o",
+        temperature=1,
+        #  max_tokens=,
+        messages=[{"role": "user", "content": prompt}]
+      )
+      print(Fore.WHITE + completion['choices'][0]['message']['content'])
 #quest
 def menu_quest():
 
   openai.api_key = os.getenv("OPENAI_KEY")
   condition = False
+  difficulter = ["Hard", "Normal", "Easy"]
 
-  while item == "menu":
+  difficulter == "menu":
     menu_menu()
   # IA
   if not condition:
 
-    difficulter = ["Hard", "Normal", "Easy"]
 
     print("Choisisser la difficulter")
     for index, item in enumerate(difficulter, 1):
@@ -86,3 +83,11 @@ def menu_quest():
       messages=[{"role": "user", "content": prompt}]
     )
     print(Fore.WHITE + completion['choices'][0]['message']['content'])
+#main
+def main():
+  while True:
+    menu_menu()
+
+
+if __name__ == "__main__":
+  main()
