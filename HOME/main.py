@@ -1,24 +1,28 @@
 from HOME.CRAFT.craft import menu_craft
 
-menu_items = ["Craft", "Quest", "Build"]
+def menu_menu():
 
-print("Où voulez vous aller ?")
-for index, item in enumerate(menu_items, 1):
-  print(f"{index}. {item}")
+  menu_items = ["Craft", "Quest", "Build"]
 
-choice = int(input("Veuillez entrer un numéro :"))
+  print("Où voulez vous aller ?")
+  for index, item in enumerate(menu_items, 1):
+    print(f"{index}. {item}")
 
-if 1 <= choice <= len(menu_items):
-  print(f"Vous avez choisi : {menu_items[choice-1]}")
-else:
-  print("choix invalide")
+  choice = int(input("Veuillez entrer un numéro :"))
 
-if choice == 1:
-  menu_craft()
+  if 1 <= choice <= len(menu_items):
+    print(f"Vous avez choisi : {menu_items[choice-1]}")
+  else:
+    print("choix invalide")
 
-if choice == 2:
-  menu_craft()
+  if choice == 1:
+    menu_craft()
 
-if choice == 3:
-  menu_craft()
+  if choice == 2:
+    menu_craft()
+
+  if choice == 3:
+    menu_craft()
+
+menu_menu()
 

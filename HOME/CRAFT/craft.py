@@ -1,11 +1,11 @@
 import os.path
-import time
-import sys
 import os
+from random import choice
+
 import openai
-import colorama
 from colorama import Fore, Style
 from dotenv import load_dotenv
+
 load_dotenv()
 
 def menu_craft():
@@ -14,11 +14,16 @@ def menu_craft():
 
   openai.api_key = os.getenv("OPENAI_KEY")
 
-  while not condition:
+  item = input(Style.BRIGHT + Fore.BLUE + "Quelle est l'iteam d'on vous vouler connaitre le craft ?")
+
+  while choice == "stop"
+    from HOME.main import menu_menu
+    menu_menu()
+
+  if not condition:
     sujet = "Minecraft"
-    item = input( Style.BRIGHT + Fore.BLUE +"Quelle est l'iteam d'on vous vouler connaitre le craft ?")
     prompt = f"Affiche uniquemment en Grille le craft de {item}"
-    #prompt = f"Explique tres brievement comment crafter {item} dans {sujet} et ce en expliquant uniquement les materiaux n'hessecaire et leurs empacement"
+    # prompt = f"Explique tres brievement comment crafter {item} dans {sujet} et ce en expliquant uniquement les materiaux n'hessecaire et leurs empacement"
 
     completion = openai.ChatCompletion.create(
       model="gpt-4o",
@@ -26,6 +31,4 @@ def menu_craft():
       #  max_tokens=,
       messages=[{"role": "user", "content": prompt}]
     )
-    print(Fore.WHITE + ['choices'][0]['message']['content'])
-  if user_input.lower() == "stop":
-    condition = True
+    print(Fore.WHITE + completion['choices'][0]['message']['content'])
