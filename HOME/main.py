@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 openai.api_key = os.getenv("OPENAI_KEY")
 load_dotenv()
 sujet = "Minecraft Bedrock"
+condition_sortie = False
 
 # menu
 def menu_menu():
@@ -60,34 +61,32 @@ def menu_craft():
 def menu_quest():
 
   openai.api_key = os.getenv("OPENAI_KEY")
-  condition = False
-  difficulter = ["Hard", "Normal", "Easy"]
-
-  difficulter == "menu":
-    menu_menu()
+  condition_sortie = False
+  difficulter = ["Extrême", "Normal", "symple"]
   # IA
-  if not condition:
-
-
+  while not condition_sortie:
     print("Choisisser la difficulter")
     for index, item in enumerate(difficulter, 1):
       print(f"{index}. {item}")
-      choice = int(input("Veuillez entrer un numéro :"))
 
-    prompt = f"Donne moi un défi dans {sujet} original est avec comme difficulter: {difficulter}"
+    choice =input("Veuillez entrer un numéro :")
 
-    completion = openai.ChatCompletion.create(
-      model="gpt-4o",
-      temperature=1,
-      #  max_tokens=,
-      messages=[{"role": "user", "content": prompt}]
-    )
-    print(Fore.WHITE + completion['choices'][0]['message']['content'])
+    if str(choice) == "exit":
+      condition_sortie = True
+
+    else:
+      1 <= int(choice) <= len(difficulter)
+      prompt = f"Donne moi un défi dans {sujet} original est avec comme difficulter: {difficulter[int(choice) - 1]}"
+      completion = openai.ChatCompletion.create(
+        model="gpt-4o",
+        temperature=1,
+        #  max_tokens=,
+        messages=[{"role": "user", "content": prompt}]
+      )
+      print(Fore.WHITE + completion['choices'][0]['message']['content'])
 #main
 def main():
   while True:
     menu_menu()
-
-
 if __name__ == "__main__":
   main()
