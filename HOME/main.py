@@ -7,9 +7,7 @@ from dotenv import load_dotenv
 openai.api_key = os.getenv("OPENAI_KEY")
 load_dotenv()
 sujet = "Minecraft Bedrock"
-condition_sortie = False
-
-# menu
+# menu (work with main)
 def menu_menu():
 
   menu_items = ["Craft", "Quest", "Build"]
@@ -38,22 +36,18 @@ def menu_craft():
 
   openai.api_key = os.getenv("OPENAI_KEY")
   condition_sortie = False
-  # IA
+
   while not condition_sortie:
     item = input(Style.BRIGHT + Fore.BLUE + "Quelle est l'iteam d'on vous vouler connaitre le craft ?")
-    # retour menu
+    #retour menu
     if item == "exit":
       condition_sortie = True
+    #AI
     else:
-
-      # sujet = "Minecraft"
       prompt = f"Affiche uniquemment en Grille le craft de {item} dans {sujet}"
-      # prompt = f"Explique tres brievement comment crafter {item} dans {sujet} et ce en expliquant uniquement les materiaux n'hessecaire et leurs empacement"
-
       completion = openai.ChatCompletion.create(
         model="gpt-4o",
-        temperature=1,
-        #  max_tokens=,
+        temperature=0,
         messages=[{"role": "user", "content": prompt}]
       )
       print(Fore.WHITE + completion['choices'][0]['message']['content'])
@@ -63,24 +57,23 @@ def menu_quest():
   openai.api_key = os.getenv("OPENAI_KEY")
   condition_sortie = False
   difficulter = ["Extrême", "Normal", "symple"]
-  # IA
+
+  #Choice of difficulty
   while not condition_sortie:
     print("Choisisser la difficulter")
     for index, item in enumerate(difficulter, 1):
       print(f"{index}. {item}")
 
     choice =input("Veuillez entrer un numéro :")
-
+    #return to the menu
     if str(choice) == "exit":
       condition_sortie = True
-
+    #AI
     else:
-      #1 <= int(choice) <= len(difficulter)
       prompt = f"Donne moi un défi dans {sujet} original est avec comme difficulter: {difficulter[int(choice) - 1]}"
       completion = openai.ChatCompletion.create(
         model="gpt-4o",
         temperature=1,
-        #  max_tokens=,
         messages=[{"role": "user", "content": prompt}]
       )
       print(Fore.WHITE + completion['choices'][0]['message']['content'])
@@ -91,26 +84,22 @@ def menu_build():
   # IA
   while not condition_sortie:
     confirmation = input(Style.BRIGHT + Fore.BLUE + "Etè vous sur de vouloir faire une maison ?")
-    # retour menu
+    #return to the menu
     if confirmation == "exit":
       condition_sortie = True
     else:
       taile = input(Style.BRIGHT + Fore.BLUE + "Quelle est la taile de la maison ? (x, z, y)")
       style = input(Style.BRIGHT + Fore.BLUE + "Quelle est le style ?")
 
-      # sujet = "Minecraft"
       prompt = f"Explique consiment comment faire une maison de {taile} dans le style {style} dans {sujet}"
-      # prompt = f"Explique tres brievement comment crafter {item} dans {sujet} et ce en expliquant uniquement les materiaux n'hessecaire et leurs empacement"
 
       completion = openai.ChatCompletion.create(
         model="gpt-4o",
         temperature=1,
-        #  max_tokens=,
         messages=[{"role": "user", "content": prompt}]
       )
       print(Fore.WHITE + completion['choices'][0]['message']['content'])
-
-#main
+#main (creates a loop, basic function)
 def main():
   while True:
     menu_menu()
