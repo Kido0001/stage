@@ -3,7 +3,6 @@ import openai
 from colorama import Fore, Style
 from dotenv import load_dotenv
 
-openai.api_key = os.getenv("OPENAI_KEY")
 load_dotenv()
 sujet = "Minecraft Bedrock"
 # menu (work with main)
@@ -42,7 +41,6 @@ def menu_craft():
   Demande a l'utilisateur un craft. Les entrées sont envoyer a OpenAI.
   Asks the user for a craft. Input is sent to OpenAI.
   """
-
   exit_condition = False
 
   while not exit_condition:
@@ -130,6 +128,7 @@ def main():
   Fonction principale du programme qui lance le menu principal.
   Main function of the program that launches the main menu.
   """
+  openai.api_key = os.getenv("OPENAI_KEY")
   while True:
     menu_menu()
 if __name__ == "__main__":
