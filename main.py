@@ -26,6 +26,7 @@ def menu_menu():
   if choice == 1:
     menu_craft()
 
+  #FIXME: change to elif instead of if
   if choice == 2:
     menu_quest()
 
@@ -34,16 +35,20 @@ def menu_menu():
 # craft
 def menu_craft():
 
+  #FIXME: already defined in main
   openai.api_key = os.getenv("OPENAI_KEY")
+  #FIXME : Change to english variable name
   condition_sortie = False
 
   while not condition_sortie:
+    #FIXME : Typo
     item = input(Style.BRIGHT + Fore.BLUE + "Quelle est l'iteam d'on vous vouler connaitre le craft ?")
     #retour menu
     if item == "exit":
       condition_sortie = True
     #AI
     else:
+      #FIXME : Typo
       prompt = f"Affiche uniquemment en Grille le craft de {item} dans {sujet}"
       completion = openai.ChatCompletion.create(
         model="gpt-4o",
@@ -53,9 +58,11 @@ def menu_craft():
       print(Fore.WHITE + completion['choices'][0]['message']['content'])
 #quest
 def menu_quest():
-
+  #FIXME: already defined in main
   openai.api_key = os.getenv("OPENAI_KEY")
+  #FIXME : Change to english variable name
   condition_sortie = False
+  #FIXME : Change to english variable name
   difficulter = ["Extrême", "Normal", "symple"]
 
   #Choice of difficulty
@@ -80,17 +87,21 @@ def menu_quest():
 #build
 def menu_build():
   openai.api_key = os.getenv("OPENAI_KEY")
+  #FIXME : Change to english variable name
   condition_sortie = False
   # IA
   while not condition_sortie:
+    #FIXME : Typo
     confirmation = input(Style.BRIGHT + Fore.BLUE + "Etè vous sur de vouloir faire une maison ?")
     #return to the menu
     if confirmation == "exit":
       condition_sortie = True
     else:
+      #FIXME : Change to english variable name
       taile = input(Style.BRIGHT + Fore.BLUE + "Quelle est la taile de la maison ? (x, z, y)")
       style = input(Style.BRIGHT + Fore.BLUE + "Quelle est le style ?")
 
+      #FIXME : Typo
       prompt = f"Explique consiment comment faire une maison de {taile} dans le style {style} dans {sujet}"
 
       completion = openai.ChatCompletion.create(
