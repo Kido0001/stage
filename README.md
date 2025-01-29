@@ -1,12 +1,12 @@
 # Minecraft Bedrock Command Line Interface
-Ce projet permet aux utilisateurs de générer des crafts, des quêtes et des constructions pour Minecraft Bedrock en utilisant l'API OpenAI. L'utilisateur peut interagir avec le programme via des options de menu.
+This project allows users to generate crafts, quests, and builds for Minecraft Bedrock using the OpenAI API. The user can interact with the program via menu options.
 
-# Prérequis
-Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur votre machine :
+# Prerequisites
+Before you begin, make sure you have the following installed on your machine:
 
-* Python 3.6 ou supérieur
+* Python 3.6 or higher
 
-* Les modules Python suivants :
+* The following Python modules:
 
 ``` os ```
 
@@ -14,59 +14,59 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 
 ```colorama ```
 
-Vous pouvez installer ces modules en utilisant la commande suivante :
+You can install these modules using the following command:
 
 ``` pip install openai colorama ```
 
 # Configuration
-1. Créez un fichier ```.env``` à la racine de votre projet et ajoutez-y votre clé API OpenAI :
+1. Create a ```.env``` file at the root of your project and add your OpenAI API key to it:
 
 ```OPENAI_KEY=your_openai_api_key_here```
 
-2. Chargez les variables d'environnement en ajoutant la ligne suivante dans votre script Python :
+2. Load the environment variables by adding the following line to your Python script:
 
 ```load_dotenv()```
 
-# Utilisation
+# Usage
 
-Lancer le script ```main.py``` pour accéder au menu principal. Voici les fonctions principales :
+Run the ```main.py``` script to access the main menu. Here are the main functions:
 
 ```menu_menu()```
-Affiche le menu principal et dirige l'utilisateur vers les options choisies:
+Displays the main menu and directs the user to the chosen options:
 
-* Craft : Permet de connaître le craft d'un item en interrogeant l'API OpenAI.
+* Craft: Allows you to know the craft of an item by querying the OpenAI API.
 
-* Quest : Génère un défi avec un certain niveau de difficulté en interrogeant l'API OpenAI.
+* Quest: Generates a challenge with a certain difficulty level by querying the OpenAI API.
 
-* Build : Génère des instructions pour construire une maison de taille et de style spécifiques en interrogeant l'API OpenAI.
+* Build: Generates instructions for building a house of a specific size and style by querying the OpenAI API.
 
-* Help : Affiche l'aide des différentes fonctionnalités.
+* Help: Displays help for the different features.
 
 ```menu_craft()```
-Demande à l'utilisateur un craft et envoie l'entrée à OpenAI pour obtenir les instructions de craft.
+Asks the user for a craft and sends the input to OpenAI to get the crafting instructions.
 
 ```menu_quest()```
-Demande le niveau de difficulté d'un défi et envoie l'entrée à OpenAI pour obtenir un défi original.
+Asks the difficulty level of a challenge and sends the input to OpenAI to get an original challenge.
 
 ```menu_build()```
-Demande la taille et le style d'une maison, et envoie l'entrée à OpenAI pour obtenir des instructions de construction.
+Queries the size and style of a house, and sends the input to OpenAI for building instructions.
 
 ```menu_help()```
-Affiche les descriptions des différentes fonctions du programme.
+Displays descriptions of the various functions in the program.
 
 ```main()```
-Fonction principale du programme qui lance le menu principal dans une boucle.
+The main function of the program that runs the main menu in a loop.
 
-# Exemple
+# Example
 
-Voici un exemple de menu interactif :
+Here is an example of an interactive menu:
 ```
-Où voulez-vous aller ?
+Where do you want to go?
 1. Craft
 2. Quest
 3. Build
 4. Help
 
-Veuillez entrer un numéro :
+Please enter a number:
 ```
-Les utilisateurs peuvent interagir avec ces options pour obtenir des informations sur le craft, les défis et les constructions dans Minecraft Bedrock.
+Users can interact with these options to get information about crafting, challenges, and building in Minecraft Bedrock.
