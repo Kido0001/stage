@@ -1,4 +1,3 @@
-import os.path
 import os
 import openai
 from colorama import Fore, Style
@@ -9,10 +8,13 @@ load_dotenv()
 sujet = "Minecraft Bedrock"
 # menu (work with main)
 def menu_menu():
+  """
+  Affiche le menu et dirige l'utilisateur vers les options choisies.
+  Displays the menu and directs the user to the chosen options.
+  """
+  menu_items = ["Craft", "Quest", "Build", "Help"]
 
-  menu_items = ["Craft", "Quest", "Build"]
-
-  print("Où voulez vous aller ?")
+  print("Où voulez-vous aller ?")
   for index, item in enumerate(menu_items, 1):
     print(f"{index}. {item}")
 
@@ -26,30 +28,35 @@ def menu_menu():
   if choice == 1:
     menu_craft()
 
-  #FIXME: change to elif instead of if
-  if choice == 2:
+  elif choice == 2:
     menu_quest()
 
-  if choice == 3:
+  elif choice == 3:
     menu_build()
+
+  elif choice == 4:
+    menu_help()
 # craft
 def menu_craft():
+  """
+  Demande a l'utilisateur un craft. Les entrées sont envoyer a OpenAI.
+  Asks the user for a craft. Input is sent to OpenAI.
+  """
 
-  #FIXME: already defined in main
-  openai.api_key = os.getenv("OPENAI_KEY")
-  #FIXME : Change to english variable name
-  condition_sortie = False
+  exit_condition = False
 
-  while not condition_sortie:
-    #FIXME : Typo
-    item = input(Style.BRIGHT + Fore.BLUE + "Quelle est l'iteam d'on vous vouler connaitre le craft ?")
+  while not exit_condition:
+    item = input(Style.BRIGHT + Fore.BLUE + "Quel est l'item dont vous voulez connaitre le craft ?")
     #retour menu
     if item == "exit":
-      condition_sortie = True
+      """
+       Si l'entré est = a exit, l'utilisateur retourne au menu_menu().
+       If the input is = a exit, the user returns to the menu() menu.
+      """
+      exit_condition = True
     #AI
     else:
-      #FIXME : Typo
-      prompt = f"Affiche uniquemment en Grille le craft de {item} dans {sujet}"
+      prompt = f"Affiche uniquement en Grille le craft de {item} dans {sujet}"
       completion = openai.ChatCompletion.create(
         model="gpt-4o",
         temperature=0,
@@ -58,26 +65,27 @@ def menu_craft():
       print(Fore.WHITE + completion['choices'][0]['message']['content'])
 #quest
 def menu_quest():
-  #FIXME: already defined in main
-  openai.api_key = os.getenv("OPENAI_KEY")
-  #FIXME : Change to english variable name
-  condition_sortie = False
-  #FIXME : Change to english variable name
-  difficulter = ["Extrême", "Normal", "symple"]
+  """
+  Demande le niveau de difficulté du défi.
+  Ask for the difficulty level of the challenge.
+  """
+
+  exit_condition = False
+  difficulty = ["Extrême", "Normal", "symple"]
 
   #Choice of difficulty
-  while not condition_sortie:
-    print("Choisisser la difficulter")
-    for index, item in enumerate(difficulter, 1):
+  while not exit_condition:
+    print("Choisissez la difficulty")
+    for index, item in enumerate(difficulty, 1):
       print(f"{index}. {item}")
 
     choice =input("Veuillez entrer un numéro :")
     #return to the menu
     if str(choice) == "exit":
-      condition_sortie = True
+      exit_condition = True
     #AI
     else:
-      prompt = f"Donne moi un défi dans {sujet} original est avec comme difficulter: {difficulter[int(choice) - 1]}"
+      prompt = f"Donne moi un défi dans {sujet} original est avec comme difficulter : {difficulty[int(choice) - 1]}"
       completion = openai.ChatCompletion.create(
         model="gpt-4o",
         temperature=1,
@@ -86,23 +94,21 @@ def menu_quest():
       print(Fore.WHITE + completion['choices'][0]['message']['content'])
 #build
 def menu_build():
-  openai.api_key = os.getenv("OPENAI_KEY")
-  #FIXME : Change to english variable name
-  condition_sortie = False
+  """
+  Demmande la taille de la maison ainsi que le style.
+  Ask for the size of the house as well as the style.
+  """
+  exit_condition = False
   # IA
-  while not condition_sortie:
-    #FIXME : Typo
-    confirmation = input(Style.BRIGHT + Fore.BLUE + "Etè vous sur de vouloir faire une maison ?")
+  while not exit_condition:
+    confirmation = input(Style.BRIGHT + Fore.BLUE + "Êtes-vous sûr de vouloir faire une maison ?")
     #return to the menu
     if confirmation == "exit":
-      condition_sortie = True
+      exit_condition = True
     else:
-      #FIXME : Change to english variable name
-      taile = input(Style.BRIGHT + Fore.BLUE + "Quelle est la taile de la maison ? (x, z, y)")
-      style = input(Style.BRIGHT + Fore.BLUE + "Quelle est le style ?")
-
-      #FIXME : Typo
-      prompt = f"Explique consiment comment faire une maison de {taile} dans le style {style} dans {sujet}"
+      size = input(Style.BRIGHT + Fore.BLUE + "Quelle est la taille de la maison ? (x, z, y)")
+      style = input(Style.BRIGHT + Fore.BLUE + "Quel est le style ?")
+      prompt = f"Explique consiment comment faire une maison de {size} dans le style {style} dans {sujet}"
 
       completion = openai.ChatCompletion.create(
         model="gpt-4o",
@@ -110,8 +116,20 @@ def menu_build():
         messages=[{"role": "user", "content": prompt}]
       )
       print(Fore.WHITE + completion['choices'][0]['message']['content'])
-#main (creates a loop, basic function)
+#help
+def menu_help():
+  """
+  Readme : https://github.com/Kido0001/stage/blob/master/README.md
+  """
+  functions = [menu_craft, menu_quest, menu_build, main, menu_help]
+  for functions in functions:
+    print(f"{functions.__name__} : {functions.__doc__}")
+# main (creates a loop, basic function)
 def main():
+  """
+  Fonction principale du programme qui lance le menu principal.
+  Main function of the program that launches the main menu.
+  """
   while True:
     menu_menu()
 if __name__ == "__main__":
